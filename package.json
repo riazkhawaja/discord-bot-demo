@@ -1,0 +1,16 @@
+{
+  "name": "discord-bot-demo",
+  "version": "1.0.0",
+  "description": "A demo for youtube",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "author": "Riaz Khawaja",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.2"
+  }
+}
