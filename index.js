@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, REST, Routes, ApplicationCommandType, ApplicationCommandOptionType } from 'discord.js';
+import { Client, GatewayIntentBits, REST, Routes, ApplicationCommandType, ApplicationCommandOptionType, EmbedBuilder } from 'discord.js';
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent] })
 import { config } from 'dotenv';
 
@@ -34,6 +34,10 @@ config();
                     { name: "11", value: 11 }
                 ]
             }]
+        },
+        {
+            name: "embed",
+            description: "Showcase an embed"
         }
     ];
 
@@ -51,9 +55,36 @@ client.on("interactionCreate", async interaction => {
                 await interaction.reply(interaction.options.get("anything").value);
                 break;
             case "select":
-                const msg = interaction.options.get("answer").value == 1 ? "You have correctly selected 1!" : "Wrong answer, try again";
+                const msg = interaction.options.get("answer").value == 2 ? "You have correctly selected 2!" : "Wrong answer, try again";
                 await interaction.reply(msg);
                 break;
+            case "embed":
+                const embed = new EmbedBuilder()
+                .setColor("Blue")
+                .setTitle("Title of embed")
+                .setURL("https://google.com")
+                .setAuthor({
+                    name: interaction.user.tag,
+                    iconURL: interaction.user.displayAvatarURL()
+                })
+                .setDescription("description")
+                .setThumbnail(interaction.user.displayAvatarURL())
+                .setImage(interaction.user.displayAvatarURL())
+                .addFields(
+                    {
+                        name: "field 1", value: "value 1"
+                    },
+                    {
+                        name: "field 2", value: "value 2", inline: true
+                    },
+                    {
+                        name: "field 3", value: "value 3", inline: true
+                    },
+                )
+                .setTimestamp()
+                .setFooter({ text: "i am a footer" })
+
+                interaction.reply({ embeds: [embed] })
         }
     }
 });
